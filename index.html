@@ -1,0 +1,906 @@
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Club Nebresse | Official Website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--gold:#d6ab47;--gold-l:#f3d68c;--gold-s:rgba(214,171,71,.14);--bg1:#020b1a;--bg2:#061428;--bg3:#0a1f3f;--panel:rgba(255,255,255,.055);--line:rgba(214,171,71,.18);--white:#f0f6ff;--soft:#b8ccf0;--muted:#7090be;--r-xl:28px;--r-lg:20px;--r-md:14px;--shadow:0 20px 50px rgba(0,0,0,.4);--max:1260px;--nav-h:80px;--nb:#1a3fa0;--no:#e8960e}
+    *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+    html,body{overflow-x:hidden}
+    body{font-family:'Poppins',sans-serif;color:var(--white);background:linear-gradient(160deg,var(--bg1) 0%,var(--bg2) 50%,var(--bg3) 100%);line-height:1.6;cursor:none}
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    button,input,textarea{font:inherit}
+    .container{width:min(var(--max),92%);margin-inline:auto}
+ 
+    #cur{position:fixed;width:10px;height:10px;background:var(--gold-l);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .08s,width .3s,height .3s;mix-blend-mode:difference}
+    #cur-ring{position:fixed;width:38px;height:38px;border:1.5px solid rgba(243,214,140,.55);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+    #spb{position:fixed;top:0;left:0;height:3px;z-index:9997;width:0%;background:linear-gradient(90deg,var(--gold-l),var(--gold),#e8960e);box-shadow:0 0 12px rgba(243,214,140,.6)}
+    #ldr{position:fixed;inset:0;background:var(--bg1);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;transition:opacity .8s ease,transform .8s ease}
+    #ldr.out{opacity:0;pointer-events:none;transform:scale(1.04)}
+    .ldr-nm{font-family:'Cinzel',serif;font-size:3.4rem;letter-spacing:6px;background:linear-gradient(135deg,var(--gold-l),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:ldP 1.3s ease-in-out infinite}
+    @keyframes ldP{0%,100%{opacity:.4;transform:scale(.97)}50%{opacity:1;transform:scale(1.02)}}
+    .ldr-bar{width:200px;height:3px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden}
+    .ldr-fill{height:100%;background:linear-gradient(90deg,var(--gold-l),var(--gold));border-radius:99px;animation:ldF 1.6s ease forwards}
+    @keyframes ldF{from{width:0}to{width:100%}}
+    #pcv{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5}
+ 
+    header{position:sticky;top:0;z-index:1000;background:rgba(2,11,26,.7);backdrop-filter:blur(16px);border-bottom:1px solid rgba(214,171,71,.1);transition:.4s ease}
+    header.scrolled{background:rgba(2,11,26,.97);box-shadow:0 4px 30px rgba(0,0,0,.5)}
+    .nav{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand-mark{width:46px;height:46px;border-radius:50%;overflow:hidden;border:2px solid var(--gold);box-shadow:0 0 18px rgba(214,171,71,.22);transition:.4s ease;flex-shrink:0}
+    .brand-mark:hover{transform:rotate(12deg) scale(1.1);box-shadow:0 0 28px rgba(214,171,71,.4)}
+    .brand-mark img{width:100%;height:100%;object-fit:cover}
+    .brand-name{font-family:'Cinzel',serif;font-size:1.35rem;letter-spacing:2px;color:var(--gold-l);font-weight:700}
+    .nav-links{display:flex;align-items:center;gap:20px;list-style:none}
+    .nav-links a{color:var(--white);font-weight:500;font-size:.95rem;position:relative;transition:.3s}
+    .nav-links a::after{content:"";position:absolute;left:0;bottom:-7px;width:0;height:2px;background:linear-gradient(90deg,var(--gold-l),var(--gold));transition:.3s;border-radius:10px}
+    .nav-links a:hover{color:var(--gold-l)}
+    .nav-links a:hover::after{width:100%}
+    .nav-actions{display:flex;align-items:center;gap:10px}
+    .btn{display:inline-flex;align-items:center;gap:8px;border:none;cursor:none;border-radius:999px;transition:.3s;font-weight:600;position:relative;overflow:hidden}
+    .btn-gold{padding:12px 22px;color:#111;background:linear-gradient(135deg,var(--gold-l),var(--gold));box-shadow:0 10px 26px rgba(214,171,71,.2)}
+    .btn-gold:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(214,171,71,.35)}
+    .btn-ghost{padding:11px 17px;color:var(--white);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+    .btn-ghost:hover{background:rgba(255,255,255,.1)}
+    .menu-tog{display:none;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:var(--white);cursor:none;font-size:1.1rem}
+    .m-menu{position:fixed;inset:0 0 auto auto;width:min(340px,100%);height:100vh;background:rgba(2,11,26,.98);transform:translateX(100%);transition:.35s ease;z-index:1800;border-left:1px solid rgba(214,171,71,.12);padding:24px 20px}
+    .m-menu.on{transform:translateX(0)}
+    .m-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}
+    .m-close{width:42px;height:42px;border-radius:50%;border:none;background:rgba(255,255,255,.07);color:#fff;cursor:none;transition:.25s}
+    .m-close:hover{background:rgba(255,60,60,.2);transform:rotate(90deg)}
+    .m-menu ul{list-style:none;display:grid;gap:14px}
+    .m-menu a{display:block;padding:13px 15px;border-radius:13px;background:rgba(255,255,255,.05);color:var(--white);border:1px solid rgba(255,255,255,.07);transition:.25s}
+    .m-menu a:hover{background:rgba(214,171,71,.1);transform:translateX(6px)}
+ 
+    .hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;padding:0 0 70px;overflow:hidden;z-index:1}
+    .hero-bg{position:absolute;inset:0;z-index:0;background:url('WhatsApp Image 2026-04-13 at 14.01.17.jpeg') center center/cover no-repeat}
+    .hero-bg::before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(214,171,71,.12) 0%,transparent 60%),linear-gradient(180deg,rgba(2,11,26,.18) 0%,rgba(2,11,26,.3) 30%,rgba(2,11,26,.72) 65%,rgba(2,11,26,.97) 100%)}
+    .hero-bg::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(110deg,transparent 30%,rgba(214,171,71,.04) 50%,transparent 70%);background-size:200% 100%;animation:sweep 7s ease-in-out infinite}
+    @keyframes sweep{0%{background-position:200% 0}100%{background-position:-200% 0}}
+    .hero-rays{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+    .hero-rays span{position:absolute;top:-20%;left:50%;width:1px;background:linear-gradient(180deg,rgba(243,214,140,0),rgba(243,214,140,.12),rgba(243,214,140,0));transform-origin:top center;animation:rayAn 18s linear infinite}
+    .hero-rays span:nth-child(1){height:130%;transform:rotate(-40deg);animation-delay:0s}
+    .hero-rays span:nth-child(2){height:110%;transform:rotate(-15deg);animation-delay:-4s;opacity:.6}
+    .hero-rays span:nth-child(3){height:120%;transform:rotate(10deg);animation-delay:-9s;opacity:.4}
+    .hero-rays span:nth-child(4){height:140%;transform:rotate(35deg);animation-delay:-13s;opacity:.7}
+    @keyframes rayAn{0%{opacity:0}10%{opacity:1}90%{opacity:1}100%{opacity:0}}
+    .hero-content{position:relative;z-index:5;width:100%}
+    .hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:flex-end}
+    .hero-copy{animation:hcIn .9s ease both}
+    @keyframes hcIn{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:999px;background:rgba(214,171,71,.12);border:1px solid rgba(214,171,71,.28);color:var(--gold-l);font-size:.85rem;margin-bottom:18px;animation:bPulse 3s ease-in-out infinite}
+    @keyframes bPulse{0%,100%{box-shadow:0 0 0 0 rgba(214,171,71,0)}50%{box-shadow:0 0 0 8px rgba(214,171,71,.07)}}
+    .hero-title{font-family:'Cinzel',serif;font-size:clamp(3rem,6vw,6.5rem);line-height:.98;font-weight:900;margin-bottom:20px;color:var(--gold-l);letter-spacing:-.5px}
+    .hero-title .l1{background:linear-gradient(135deg,#fff 0%,var(--gold-l) 40%,var(--gold) 70%,#fff 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimT 5s linear infinite;display:block}
+    @keyframes shimT{0%{background-position:0% center}100%{background-position:200% center}}
+    .hero-title .l2{display:block;color:var(--white);font-size:clamp(1.6rem,3vw,3rem);font-weight:500;letter-spacing:3px;margin-top:6px;opacity:.9}
+    .hero-sub{font-size:1rem;color:var(--soft);max-width:520px;margin-bottom:28px;line-height:1.7}
+    .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:36px}
+    .hero-stats{display:flex;gap:24px;flex-wrap:wrap}
+    .stat-pill{display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(214,171,71,.16);backdrop-filter:blur(8px);transition:.3s ease}
+    .stat-pill:hover{transform:translateY(-4px);background:rgba(214,171,71,.1);border-color:rgba(214,171,71,.3)}
+    .stat-num{font-family:'Cinzel',serif;font-size:1.6rem;color:var(--gold-l);font-weight:700;line-height:1}
+    .stat-lbl{font-size:.78rem;color:var(--soft);line-height:1.3;max-width:60px}
+    .hero-right{display:flex;flex-direction:column;gap:16px;align-items:flex-end;animation:hrIn 1s .3s ease both}
+    @keyframes hrIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+    .hic{background:rgba(2,11,26,.78);border:1px solid rgba(214,171,71,.2);border-radius:20px;padding:18px 22px;backdrop-filter:blur(14px);width:min(320px,100%);box-shadow:0 16px 40px rgba(0,0,0,.3);transition:.3s ease}
+    .hic:hover{transform:translateY(-5px) scale(1.01);border-color:rgba(214,171,71,.38)}
+    .hic:nth-child(1){animation:fl1 4s ease-in-out infinite}.hic:nth-child(2){animation:fl2 5s ease-in-out infinite}.hic:nth-child(3){animation:fl3 4.5s ease-in-out infinite}
+    @keyframes fl1{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    @keyframes fl2{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    @keyframes fl3{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    .hic-icon{font-size:1.5rem;margin-bottom:8px}.hic-title{color:var(--gold-l);font-weight:600;font-size:.95rem;margin-bottom:4px}.hic-desc{color:var(--soft);font-size:.84rem}
+    .scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--soft);font-size:.75rem;letter-spacing:2px;text-transform:uppercase;animation:scH 2.5s ease-in-out infinite}
+    @keyframes scH{0%,100%{opacity:.4;transform:translateX(-50%) translateY(0)}50%{opacity:1;transform:translateX(-50%) translateY(6px)}}
+    .scroll-hint-arr{width:1px;height:34px;background:linear-gradient(180deg,var(--gold-l),transparent)}
+ 
+    .section{padding:110px 0;position:relative;z-index:1}
+    .sec-title{text-align:center;margin-bottom:58px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:999px;background:var(--gold-s);border:1px solid rgba(214,171,71,.18);color:var(--gold-l);font-size:.87rem;margin-bottom:16px;animation:eP 3s ease-in-out infinite}
+    @keyframes eP{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 0 6px rgba(214,171,71,.07)}}
+    .sec-title h2{font-family:'Cinzel',serif;font-size:clamp(1.9rem,4vw,3rem);color:var(--gold-l);margin-bottom:12px;letter-spacing:.5px}
+    .sec-title p{max-width:780px;margin-inline:auto;color:var(--soft);font-size:.98rem}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);backdrop-filter:blur(12px);transition:.35s ease}
+    .card:hover{transform:translateY(-7px);box-shadow:0 28px 60px rgba(0,0,0,.4),0 0 0 1px rgba(214,171,71,.22),0 0 32px rgba(214,171,71,.07);border-color:rgba(214,171,71,.32)}
+    .rev{opacity:0;transform:translateY(30px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+    .rev.on{opacity:1;transform:translateY(0)}
+    .rev-l{opacity:0;transform:translateX(-36px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+    .rev-l.on{opacity:1;transform:translateX(0)}
+    .rev-r{opacity:0;transform:translateX(36px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+    .rev-r.on{opacity:1;transform:translateX(0)}
+ 
+    .news-sec{background:linear-gradient(180deg,#040e20,#071830,#040e20);padding:100px 0;z-index:1;position:relative}
+    .news-h{text-align:center;margin-bottom:40px}
+    .news-h h2{font-family:'Cinzel',serif;color:var(--gold-l);font-size:clamp(1.9rem,4vw,3rem);font-weight:700;margin-bottom:12px;letter-spacing:.5px}
+    .nline{width:0;height:5px;margin:0 auto;border-radius:99px;background:linear-gradient(90deg,var(--gold-l),var(--gold));transition:width 1.2s ease}
+    .nline.on{width:130px}
+    .news-shell{position:relative}
+    .news-slider{display:flex;gap:26px;overflow-x:auto;scroll-behavior:smooth;padding:12px 50px 16px;scrollbar-width:none}
+    .news-slider::-webkit-scrollbar{display:none}
+    .ncard{min-width:355px;max-width:355px;flex:0 0 auto;background:linear-gradient(160deg,#061428 0%,#0d2448 60%,#091e3a 100%);color:var(--white);border-radius:18px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.45);border:1px solid rgba(214,171,71,.25);display:flex;flex-direction:column;opacity:0;transform:translateY(20px);transition:.4s ease}
+    .ncard.on{opacity:1;transform:translateY(0)}
+    .ncard:hover{transform:translateY(-7px);box-shadow:0 18px 36px rgba(0,0,0,.13),0 0 0 2px rgba(232,150,14,.18)}
+    .nthumb{position:relative;height:265px;overflow:hidden;border-bottom:2px solid rgba(214,171,71,.3)}
+    .nthumb img{width:100%;height:100%;object-fit:cover;transition:.5s ease}
+    .ncard:hover .nthumb img{transform:scale(1.06)}
+    .nthumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.22))}
+    .nbadge{position:absolute;left:16px;bottom:18px;z-index:2;background:var(--no);color:#fff;font-weight:700;font-size:.9rem;padding:8px 14px;border-radius:999px}
+    .nbody{padding:20px 18px 22px;display:flex;flex-direction:column;gap:14px;flex:1}
+    .nbody h3{color:var(--gold-l);font-size:1.08rem;line-height:1.35}
+    .nbody p{color:var(--soft);font-size:.95rem;line-height:1.65;flex:1}
+    .nbtn{align-self:flex-start;border:none;cursor:none;padding:11px 17px;border-radius:11px;background:linear-gradient(135deg,var(--no),#efc040);color:#fff;font-weight:700;transition:.3s}
+    .nbtn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(232,150,14,.35)}
+    .news-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:52px;height:52px;border:none;cursor:none;border-radius:50%;background:linear-gradient(135deg,var(--gold-l),var(--gold));color:#17203b;font-size:1.6rem;font-weight:700;box-shadow:0 8px 22px rgba(0,0,0,.3);transition:.25s}
+    .news-arrow:hover{transform:translateY(-50%) scale(1.07)}
+    .news-arrow.l{left:0}.news-arrow.r{right:0}
+    .ncontrols{text-align:center;margin-top:24px}
+    .nmore{border:none;cursor:none;padding:13px 22px;border-radius:999px;font-weight:700;background:linear-gradient(135deg,var(--gold-l),var(--gold));color:#111;box-shadow:0 10px 24px rgba(214,171,71,.25);transition:.3s}
+    .nmore:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(214,171,71,.35)}
+ 
+    /* ========== NEWS DETAIL MODAL ========== */
+    .news-modal{position:fixed;inset:0;background:rgba(0,5,20,.92);z-index:3000;display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;opacity:0;pointer-events:none;transition:.4s ease;backdrop-filter:blur(10px)}
+    .news-modal.on{opacity:1;pointer-events:auto}
+    .nmbox{width:min(860px,96%);background:linear-gradient(170deg,#071830,#0a2040,#040f20);border:1px solid rgba(214,171,71,.2);border-radius:28px;overflow:hidden;position:relative;transform:translateY(40px) scale(.96);transition:.45s cubic-bezier(.16,1,.3,1);margin:auto}
+    .news-modal.on .nmbox{transform:translateY(0) scale(1)}
+    .nmclose{position:absolute;top:18px;right:18px;width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,.1);color:#fff;cursor:none;z-index:5;font-size:1.1rem;transition:.25s;display:flex;align-items:center;justify-content:center}
+    .nmclose:hover{background:rgba(255,60,60,.25);transform:rotate(90deg)}
+    .nm-hero{position:relative;height:340px;overflow:hidden}
+    .nm-hero img{width:100%;height:100%;object-fit:cover;transition:.6s ease}
+    .nm-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,12,28,.1) 0%,rgba(4,12,28,.75) 100%)}
+    .nm-hero-txt{position:absolute;bottom:0;left:0;right:0;padding:28px 32px;z-index:2}
+    .nm-cat{display:inline-flex;padding:7px 16px;border-radius:999px;background:var(--no);color:#fff;font-weight:700;font-size:.88rem;margin-bottom:12px}
+    .nm-hero-txt h2{font-family:'Cinzel',serif;font-size:clamp(1.4rem,3vw,2.1rem);color:var(--gold-l);line-height:1.2}
+    .nm-body{padding:34px 36px 40px}
+    .nm-meta{display:flex;align-items:center;gap:20px;margin-bottom:24px;flex-wrap:wrap}
+    .nm-meta span{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:.9rem}
+    .nm-meta strong{color:var(--gold-l)}
+    .nm-divider{width:60px;height:3px;background:linear-gradient(90deg,var(--gold-l),var(--gold));border-radius:99px;margin-bottom:24px}
+    .nm-content{color:var(--soft);font-size:1rem;line-height:1.85}
+    .nm-content p{margin-bottom:18px}
+    .nm-content h3{color:var(--gold-l);font-size:1.15rem;margin:28px 0 12px;font-weight:600}
+    .nm-content ul{padding-left:20px;margin-bottom:18px}
+    .nm-content ul li{margin-bottom:8px;color:var(--soft)}
+    .nm-imgs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0}
+    .nm-imgs img{width:100%;height:200px;object-fit:cover;border-radius:14px;border:1px solid rgba(214,171,71,.15)}
+    .nm-tags{display:flex;gap:9px;flex-wrap:wrap;margin-top:28px}
+    .nm-tag{padding:7px 14px;border-radius:999px;background:rgba(214,171,71,.1);border:1px solid rgba(214,171,71,.2);color:var(--gold-l);font-size:.84rem}
+    .nm-footer{display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:22px;border-top:1px solid rgba(214,171,71,.14);flex-wrap:gap}
+    .nm-share{display:flex;align-items:center;gap:10px;color:var(--soft);font-size:.9rem}
+    .nm-share a{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.07);border:1px solid rgba(214,171,71,.15);color:var(--gold-l);transition:.25s;font-size:.85rem}
+    .nm-share a:hover{background:rgba(214,171,71,.12);transform:translateY(-3px)}
+ 
+    .about-g{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+    .acard{padding:30px}.acard h3{color:var(--gold-l);margin-bottom:12px;font-size:1.2rem}.acard p{color:var(--soft)}
+    .alist{margin-top:18px;display:grid;gap:12px}
+    .alist li{list-style:none;display:flex;gap:10px;color:var(--soft);transition:.25s}
+    .alist li:hover{transform:translateX(7px);color:var(--white)}
+    .alist li span{color:var(--gold-l);margin-top:2px}
+ 
+    .hl-g{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+    .hlcard{padding:24px 20px;transition:.35s}.hlcard:hover{transform:translateY(-9px)}
+    .hl-icon{width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;background:rgba(214,171,71,.12);font-size:1.4rem;border:1px solid rgba(214,171,71,.18);transition:.35s}
+    .hlcard:hover .hl-icon{transform:scale(1.15) rotate(7deg);background:rgba(214,171,71,.22)}
+    .hlcard h3{color:var(--gold-l);margin-bottom:8px;font-size:1.05rem}.hlcard p{color:var(--soft);font-size:.94rem}
+ 
+    .tabs{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+    .tabs button{border:none;outline:none;padding:11px 18px;border-radius:999px;background:rgba(255,255,255,.07);color:var(--white);font-family:'Poppins',sans-serif;font-size:.92rem;font-weight:600;cursor:none;border:1px solid rgba(214,171,71,.2);transition:.3s}
+    .tabs button:hover,.tabs button.on{background:linear-gradient(135deg,var(--gold-l),var(--gold));color:#1a1a1a;transform:translateY(-2px);box-shadow:0 8px 20px rgba(214,171,71,.2)}
+    .pbox{max-width:900px;margin:0 auto 32px;text-align:center;padding:32px 26px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);display:flex;flex-direction:column;justify-content:center;min-height:148px;transition:opacity .35s,transform .35s}
+    .pbox.fade{opacity:0;transform:translateY(10px)}
+    .pbox h3{color:var(--gold-l);margin-bottom:8px;font-size:1.35rem}.pbox p{color:var(--soft)}
+    .pole-icon{font-size:1.9rem;margin-bottom:10px}
+    .sl-wrap{position:relative;padding:0 56px;margin-top:24px}
+    .msl{display:flex;gap:22px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;padding:10px 2px}
+    .msl::-webkit-scrollbar{display:none}
+    .mcard{min-width:280px;max-width:280px;background:#f6f7fc;color:#1c2233;border-radius:18px;padding:0 16px 20px;text-align:center;box-shadow:0 14px 32px rgba(0,0,0,.16);transition:.3s;flex:0 0 auto;overflow:hidden;opacity:0;transform:translateY(18px)}
+    .mcard.on{opacity:1;transform:translateY(0)}
+    .mcard:hover{transform:translateY(-9px);box-shadow:0 22px 46px rgba(0,0,0,.22)}
+    .mtop{height:74px;background:linear-gradient(135deg,#4f7cff,#3458e0);border-radius:18px 18px 0 0;margin:0 -16px 0}
+    .mcard img{width:92px;height:92px;object-fit:cover;border-radius:50%;border:4px solid #fff;margin-top:-46px;box-shadow:0 8px 16px rgba(0,0,0,.18);margin-bottom:12px;transition:.35s}
+    .mcard:hover img{transform:scale(1.08) rotate(-3deg)}
+    .mcard h4{margin-bottom:6px;font-size:1rem;font-weight:600;color:#1e2540}
+    .rbadge{display:inline-block;padding:5px 12px;border-radius:999px;margin-bottom:10px;background:#eef2ff;color:#4a6cf7;font-size:.82rem;font-weight:600;border:1px solid #d7dfff}
+    .mcard p{color:#6b7280;font-size:.9rem;margin-bottom:14px;min-height:64px}
+    .mbtn{border:none;background:#4a6cf7;color:#fff;padding:8px 16px;border-radius:9px;font-size:.86rem;font-weight:600;cursor:none;transition:.25s}
+    .mbtn:hover{background:#3456d8;transform:translateY(-2px)}
+    .sl-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border:none;border-radius:50%;background:linear-gradient(135deg,var(--gold-l),var(--gold));color:#17203b;font-size:1.15rem;font-weight:700;cursor:none;box-shadow:0 8px 18px rgba(0,0,0,.2);z-index:5;transition:.25s}
+    .sl-arrow:hover{transform:translateY(-50%) scale(1.1)}
+    .sl-arrow.l{left:0}.sl-arrow.r{right:0}
+ 
+    .gallery-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
+    .gi{position:relative;overflow:hidden;border-radius:22px;border:1px solid rgba(214,171,71,.14);box-shadow:var(--shadow);transition:.4s ease;cursor:none}
+    .gi:hover{transform:translateY(-4px);box-shadow:0 30px 64px rgba(0,0,0,.36)}
+    .gi.large{min-height:530px;grid-row:span 2}
+    .gi:not(.large){min-height:254px}
+    .gi img{width:100%;height:100%;object-fit:cover;transition:.55s ease}
+    .gi:hover img{transform:scale(1.07)}
+    .gi-ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(2,11,26,.88) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:20px;transition:.4s ease}
+    .gi:hover .gi-ov{background:linear-gradient(180deg,transparent 10%,rgba(2,11,26,.94) 100%)}
+    .gi-ov h3{color:var(--gold-l);font-size:1.05rem;margin-bottom:5px}
+    .gi-ov p{color:var(--soft);font-size:.9rem;margin-bottom:12px}
+    .gi-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border:none;cursor:none;border-radius:99px;font-size:.82rem;font-weight:600;background:linear-gradient(135deg,var(--gold-l),var(--gold));color:#111;transform:translateY(8px);opacity:0;transition:.3s ease}
+    .gi:hover .gi-btn{transform:translateY(0);opacity:1}
+    .gal-cta{text-align:center;margin-top:38px}
+    .btn-ap{display:inline-flex;align-items:center;gap:12px;padding:16px 36px;border:none;cursor:none;border-radius:999px;font-size:1rem;font-weight:700;background:linear-gradient(135deg,var(--gold-l),var(--gold));color:#111;box-shadow:0 14px 36px rgba(214,171,71,.28);transition:.35s;position:relative;overflow:hidden}
+    .btn-ap::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:translateX(-100%);transition:.5s ease}
+    .btn-ap:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 22px 50px rgba(214,171,71,.4)}
+    .btn-ap:hover::before{transform:translateX(100%)}
+    .btn-ap .arr{font-size:1.3rem;transition:.3s}
+    .btn-ap:hover .arr{transform:translateX(4px)}
+ 
+    .lb{position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:9990;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.4s ease}
+    .lb.on{opacity:1;pointer-events:auto}
+    .lb-inner{position:relative;width:min(920px,94vw)}
+    .lb-img{width:100%;max-height:80vh;object-fit:contain;border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.5);transform:scale(.9);transition:.4s cubic-bezier(.16,1,.3,1)}
+    .lb.on .lb-img{transform:scale(1)}
+    .lb-cap{text-align:center;margin-top:16px;color:var(--soft);font-size:.95rem}
+    .lb-close{position:absolute;top:-46px;right:0;width:40px;height:40px;border:none;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;cursor:none;font-size:1.1rem;transition:.25s}
+    .lb-close:hover{background:rgba(255,60,60,.3);transform:rotate(90deg)}
+    .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:50px;height:50px;border:none;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:1.5rem;cursor:none;transition:.25s}
+    .lb-nav:hover{background:rgba(214,171,71,.25);transform:translateY(-50%) scale(1.08)}
+    .lb-nav.prev{left:-60px}.lb-nav.next{right:-60px}
+    .lb-dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
+    .lb-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.25);border:none;cursor:none;transition:.25s}
+    .lb-dot.on{background:var(--gold-l);transform:scale(1.4)}
+ 
+    .timeline{position:relative;max-width:880px;margin:0 auto}
+    .timeline::before{content:"";position:absolute;left:50%;top:0;transform:translateX(-50%);width:2px;height:100%;background:linear-gradient(180deg,rgba(214,171,71,.04),rgba(214,171,71,.44),rgba(214,171,71,.04))}
+    .titem{width:50%;padding:0 32px 44px;position:relative}
+    .titem:nth-child(odd){margin-left:auto}
+    .tdot{position:absolute;top:10px;width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--gold-l),var(--gold));animation:dP 2.5s ease-in-out infinite}
+    @keyframes dP{0%,100%{box-shadow:0 0 0 0 rgba(214,171,71,.3),0 0 0 7px rgba(214,171,71,.07)}50%{box-shadow:0 0 0 7px rgba(214,171,71,.15),0 0 0 13px rgba(214,171,71,.04)}}
+    .titem:nth-child(even) .tdot{right:-8px}.titem:nth-child(odd) .tdot{left:-8px}
+    .tcard{padding:22px}.tcard .date{color:var(--gold-l);font-weight:700;margin-bottom:7px;display:inline-block}
+    .tcard h3{color:var(--white);margin-bottom:8px;font-size:1.1rem}.tcard p{color:var(--soft);font-size:.93rem}
+ 
+    .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .actcard{padding:26px}
+    .act-icon{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(214,171,71,.13);font-size:1.35rem;margin-bottom:14px;transition:.3s}
+    .actcard:hover .act-icon{transform:scale(1.18) rotate(-8deg);background:rgba(214,171,71,.24)}
+    .actcard h3{color:var(--gold-l);margin-bottom:8px;font-size:1.15rem}.actcard p{color:var(--soft)}
+ 
+    .cg{display:grid;grid-template-columns:.95fr 1.05fr;gap:26px;align-items:start}
+    .cinfo,.cform{padding:28px}
+    .cinfo h3,.cform h3{color:var(--gold-l);margin-bottom:10px;font-size:1.25rem}
+    .cinfo p{color:var(--soft);margin-bottom:18px}
+    .clist{display:grid;gap:12px;margin-bottom:22px}
+    .citem{display:flex;gap:12px;align-items:flex-start;color:var(--soft);padding:12px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(214,171,71,.1);transition:.25s}
+    .citem:hover{transform:translateX(6px);background:rgba(214,171,71,.07)}
+    .citem strong{color:var(--gold-l);display:block;margin-bottom:2px}
+    .msoc{display:flex;gap:10px;flex-wrap:wrap}
+    .msoc a{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);border:1px solid rgba(214,171,71,.14);color:var(--gold-l);transition:.3s}
+    .msoc a:hover{transform:translateY(-4px) scale(1.1);background:rgba(214,171,71,.12)}
+    .cform form{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+    .field{display:flex;flex-direction:column;gap:7px}
+    .field.full{grid-column:1/-1}
+    .field label{font-size:.9rem;color:var(--gold-l);font-weight:600}
+    .field input,.field textarea{width:100%;padding:13px 15px;background:rgba(255,255,255,.06);color:var(--white);border:1px solid rgba(255,255,255,.1);border-radius:13px;outline:none;transition:.3s;resize:none}
+    .field input:focus,.field textarea:focus{border-color:rgba(214,171,71,.4);box-shadow:0 0 0 4px rgba(214,171,71,.08)}
+    .fnote{color:var(--muted);font-size:.88rem;margin-top:14px}
+ 
+    footer{background:linear-gradient(180deg,#05122a,#08193e,#040e1f);padding:80px 0 22px;margin-top:18px;border-top:1px solid rgba(214,171,71,.2);z-index:1;position:relative}
+    .fg{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:38px;align-items:start}
+    .fbrand{padding-right:18px}
+    .fbrand-title{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+    .fbrand-title img{width:68px;height:68px;border-radius:50%;border:2px solid var(--gold);background:#fff;transition:.4s}
+    .fbrand-title img:hover{transform:rotate(12deg) scale(1.06)}
+    .fbrand-title h2{font-size:2.7rem;color:var(--gold-l);letter-spacing:2px;font-weight:700}
+    .fbrand p{color:#b8caec;max-width:300px;font-size:1rem;margin-bottom:32px}
+    .follow-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+    .follow-row span{color:#fff;font-weight:600;font-size:1rem}
+    .sbtn{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:var(--gold-l);font-size:1.1rem;border:1px solid rgba(214,171,71,.17);transition:.3s}
+    .sbtn:hover{transform:translateY(-5px) rotate(5deg);background:rgba(214,171,71,.12);color:#fff}
+    .fcol h3{color:var(--gold-l);font-size:1rem;margin-bottom:22px;font-weight:700}
+    .fcol ul{list-style:none;display:flex;flex-direction:column;gap:18px}
+    .fcol a{color:#b0c2e6;transition:.3s;font-size:.97rem}
+    .fcol a:hover{color:var(--gold-l);transform:translateX(4px);display:inline-block}
+    .fline{margin-top:38px;border-top:1px solid rgba(214,171,71,.16);padding-top:16px;text-align:center;color:#a0b6e0;font-size:.9rem}
+ 
+    .modal{position:fixed;inset:0;background:rgba(0,5,15,.85);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:.4s;z-index:2000;backdrop-filter:blur(8px)}
+    .modal.on{opacity:1;pointer-events:auto}
+    .mbox{width:min(740px,96%);background:linear-gradient(180deg,#0a1b3d,#071228);border:1px solid rgba(214,171,71,.17);border-radius:26px;box-shadow:0 20px 60px rgba(0,0,0,.4);overflow:hidden;position:relative;transform:scale(.88) translateY(20px);transition:.4s cubic-bezier(.16,1,.3,1)}
+    .modal.on .mbox{transform:scale(1) translateY(0)}
+    .mclose{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;border:none;background:rgba(255,255,255,.08);color:#fff;cursor:none;z-index:2;transition:.25s}
+    .mclose:hover{background:rgba(255,60,60,.2);transform:rotate(90deg)}
+    .mcon{display:grid;grid-template-columns:270px 1fr}
+    .mimg{background:#081224}
+    .mimg img{width:100%;height:100%;object-fit:cover}
+    .minfo{padding:32px 26px 26px}
+    .mrole{display:inline-block;margin-bottom:10px;padding:7px 12px;border-radius:999px;background:rgba(214,171,71,.1);border:1px solid rgba(214,171,71,.16);color:var(--gold-l);font-weight:600;font-size:.86rem}
+    .minfo h3{font-size:1.75rem;color:#fff;margin-bottom:9px}
+    .minfo p{color:var(--soft)}
+ 
+    .totop{position:fixed;right:16px;bottom:16px;width:50px;height:50px;border:none;border-radius:50%;background:linear-gradient(135deg,var(--gold-l),var(--gold));color:#1d2433;font-size:1.15rem;cursor:none;box-shadow:0 12px 28px rgba(0,0,0,.25);z-index:1500;opacity:0;pointer-events:none;transition:.35s}
+    .totop.on{opacity:1;pointer-events:auto}
+    .totop:hover{transform:translateY(-4px) scale(1.08)}
+    .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.28);transform:scale(0);animation:rpl .6s linear;pointer-events:none}
+    @keyframes rpl{to{transform:scale(4);opacity:0}}
+ 
+    @media(max-width:1180px){.hl-g{grid-template-columns:repeat(2,1fr)}.fg{grid-template-columns:1fr 1fr 1fr}.fbrand{grid-column:1/-1}}
+    @media(max-width:980px){.hero-inner{grid-template-columns:1fr;gap:32px}.hero-right{align-items:flex-start}.about-g,.cg{grid-template-columns:1fr}.gallery-grid{grid-template-columns:1fr 1fr}.gi.large{grid-row:auto;min-height:320px;grid-column:1/-1}.timeline::before{left:14px;transform:none}.titem{width:100%;margin-left:0!important;padding:0 0 32px 46px}.titem:nth-child(even) .tdot,.titem:nth-child(odd) .tdot{left:6px;right:auto}.nav-links,.nav-actions .btn-gold{display:none}.menu-tog{display:inline-flex;align-items:center;justify-content:center}}
+    @media(max-width:720px){.section{padding:80px 0}.hl-g,.g3,.fg{grid-template-columns:1fr}.gallery-grid{grid-template-columns:1fr}.gi.large{min-height:280px}.sl-wrap{padding:0 44px}.mcard{min-width:230px;max-width:230px}.cform form{grid-template-columns:1fr}.mcon{grid-template-columns:1fr}.fbrand-title h2{font-size:2.2rem}.lb-nav.prev{left:-10px}.lb-nav.next{right:-10px}.ncard{min-width:88%;max-width:88%}.news-arrow{display:none}.nm-body{padding:24px 20px 30px}.nm-hero{height:260px}.nm-imgs{grid-template-columns:1fr}}
+    @media(max-width:600px){.hero-title{font-size:2.6rem}.hero-stats{gap:14px}.stat-pill{padding:10px 14px}.hero-right{display:none}}
+  </style>
+</head>
+<body>
+ 
+<div id="ldr"><div class="ldr-nm">NEBRESSE</div><div class="ldr-bar"><div class="ldr-fill"></div></div></div>
+<div id="cur"></div><div id="cur-ring"></div>
+<div id="spb"></div>
+<canvas id="pcv"></canvas>
+ 
+<header id="hdr">
+  <div class="container nav">
+    <a href="#accueil" class="brand">
+      <div class="brand-mark"><img src="logo_no_bg.png" alt=""></div>
+      <span class="brand-name">NEBRESSE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#accueil">Accueil</a></li><li><a href="#actualites">Actualités</a></li>
+      <li><a href="#apropos">À propos</a></li><li><a href="#highlights">Avantages</a></li>
+      <li><a href="#poles">Pôles</a></li><li><a href="#gallery">Galerie</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#contact" class="btn btn-gold">Rejoindre le club</a>
+      <button class="menu-tog" id="menuTog">☰</button>
+    </div>
+  </div>
+</header>
+<aside class="m-menu" id="mMenu">
+  <div class="m-top"><span class="brand-name">NEBRESSE</span><button class="m-close" id="mClose">✕</button></div>
+  <ul>
+    <li><a href="#accueil">Accueil</a></li><li><a href="#actualites">Actualités</a></li>
+    <li><a href="#apropos">À propos</a></li><li><a href="#highlights">Avantages</a></li>
+    <li><a href="#poles">Pôles</a></li><li><a href="#gallery">Galerie</a></li>
+    <li><a href="#timeline">Timeline</a></li><li><a href="#contact">Contact</a></li>
+  </ul>
+</aside>
+ 
+<main>
+  <section class="hero" id="accueil">
+    <div class="hero-bg"></div>
+    <div class="hero-rays"><span></span><span></span><span></span><span></span></div>
+    <div class="hero-content container">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="hero-badge">✦ Club étudiant &nbsp;·&nbsp; Leadership &nbsp;·&nbsp; Excellence</div>
+          <h1 class="hero-title">
+            <span class="l1">NEBRESSE</span>
+            <span class="l2">BE THE SPARK THAT LIGHTS UP THE PEAKS</span>
+          </h1>
+          <p class="hero-sub">Un espace d'ambition, de créativité et d'évolution. Nous réunissons les étudiants autour de projets à impact et d'un véritable esprit d'équipe.</p>
+          <div class="hero-ctas">
+            <a href="#contact" class="btn btn-gold">Rejoindre l'aventure</a>
+            <a href="#poles" class="btn btn-ghost">Découvrir les pôles</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-pill"><span class="stat-num" data-count="6">0</span><span class="stat-lbl">Pôles actifs</span></div>
+            <div class="stat-pill"><span class="stat-num" data-count="25">0</span><span class="stat-lbl">Membres engagés</span></div>
+            <div class="stat-pill"><span class="stat-num" data-count="1">0</span><span class="stat-lbl">Événements annuels</span></div>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="hic"><div class="hic-icon">🏆</div><div class="hic-title">Leadership & Excellence</div><div class="hic-desc">Former des leaders étudiants capables de mener des projets à fort impact.</div></div>
+          <div class="hic"><div class="hic-icon">🎯</div><div class="hic-title">Projets à impact</div><div class="hic-desc">Des initiatives concrètes qui laissent une empreinte positive sur la communauté.</div></div>
+          <div class="hic"><div class="hic-icon">✨</div><div class="hic-title">Créativité & Innovation</div><div class="hic-desc">Des idées audacieuses transformées en réalité grâce à l'esprit d'équipe.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint"><div class="scroll-hint-arr"></div><span>Scroll</span></div>
+  </section>
+ 
+  <section class="news-sec" id="actualites">
+    <div class="container">
+      <div class="news-h rev"><div class="eyebrow">✦ Actualités du club</div><h2>AVIS & ACTUALITÉS</h2><div class="nline" id="nLine"></div></div>
+      <div class="news-shell rev">
+        <button class="news-arrow l" onclick="slideNews(-1)">&#8249;</button>
+        <div class="news-slider" id="newsSlider"></div>
+        <button class="news-arrow r" onclick="slideNews(1)">&#8250;</button>
+      </div>
+      <div class="ncontrols rev"><button class="nmore" onclick="changeNewsSet()">Voir une nouvelle angle</button></div>
+    </div>
+  </section>
+ 
+  <section class="section" id="apropos">
+    <div class="container">
+      <div class="sec-title rev"><div class="eyebrow">✦ À propos</div><h2>Une communauté ambitieuse</h2><p>Club Nebresse vise à construire un environnement étudiant fort, organisé et créatif.</p></div>
+      <div class="about-g">
+        <div class="acard card rev-l"><h3>Notre vision</h3><p>Construire une communauté étudiante soudée, capable de mener des projets sociaux et techniques qui laissent un impact durable.</p><ul class="alist"><li><span>✦</span> Soutien éducatif : apporter aide et savoir aux élèves des zones rurales</li><li><span>✦</span> Innovation sociale : utiliser nos compétences pour améliorer le quotidien</li><li><span>✦</span> Engagement terrain : être présents là où le besoin se fait sentir</li></ul></div>
+        <div class="acard card rev-r"><h3>Notre mission</h3><p>Réduire les inégalités scolaires à travers des actions directes de rénovation et de partage de connaissances.</p><ul class="alist"><li><span>✦</span> Rénovation d'écoles : peinture, aménagement et réparation des infrastructures</li><li><span>✦</span> Ateliers éducatifs : organiser des sessions d'apprentissage pour les enfants</li><li><span>✦</span> Épanouissement : créer un environnement scolaire sain et motivant</li></ul></div>
+      </div>
+    </div>
+  </section>
+ 
+  <section class="section" id="highlights">
+    <div class="container">
+      <div class="sec-title rev"><div class="eyebrow">✦ Pourquoi nous</div><h2>Des expériences qui font grandir</h2><p>Nebresse n'est pas seulement un club, c'est un espace d'évolution et de responsabilité.</p></div>
+      <div class="hl-g">
+        <div class="hlcard card rev" style="transition-delay:.0s"><div class="hl-icon">🏆</div><h3>Leadership</h3><p>Développer la prise d'initiative et la confiance.</p></div>
+        <div class="hlcard card rev" style="transition-delay:.1s"><div class="hl-icon">🤝</div><h3>Esprit d'équipe</h3><p>Construire une vraie cohésion autour des projets.</p></div>
+        <div class="hlcard card rev" style="transition-delay:.2s"><div class="hl-icon">🎯</div><h3>Organisation</h3><p>Planifier, gérer et réussir les activités du club.</p></div>
+        <div class="hlcard card rev" style="transition-delay:.3s"><div class="hl-icon">✨</div><h3>Créativité</h3><p>Transformer les idées en événements inspirants.</p></div>
+      </div>
+    </div>
+  </section>
+ 
+  <section class="section" id="poles">
+    <div class="container">
+      <div class="sec-title rev"><div class="eyebrow">✦ Organisation interne</div><h2>Nos pôles</h2><p>Clique sur un pôle pour afficher ses responsables.</p></div>
+      <div class="tabs rev">
+        <button class="on" onclick="showPole('administration',this)">🏛 Administration</button>
+        <button onclick="showPole('communication',this)">📢 Communication</button>
+        <button onclick="showPole('media',this)">🎥 Média</button>
+        <button onclick="showPole('logistique',this)">📦 Logistique</button>
+        <button onclick="showPole('rh',this)">👥 RH</button>
+        <button onclick="showPole('sponsoring',this)">💼 Sponsoring</button>
+      </div>
+      <div class="pbox rev" id="pbox"></div>
+      <div class="sl-wrap rev">
+        <button class="sl-arrow l" onclick="slideMem(-1)">&#8249;</button>
+        <div class="msl" id="msl"></div>
+        <button class="sl-arrow r" onclick="slideMem(1)">&#8250;</button>
+      </div>
+    </div>
+  </section>
+ 
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="sec-title rev"><div class="eyebrow">✦ Moments du club</div><h2>GALERIE</h2><p>Un aperçu visuel de l'énergie du club, des activités et des événements.</p></div>
+      <div class="gallery-grid">
+        <div class="gi large rev-l" onclick="openLb(0)"><img src="WhatsApp Image 2026-04-13 at 21.34.43.jpeg" alt="Club Nebresse"><div class="gi-ov"><h3>Identité du club</h3><p>Une image forte et inspirante.</p><button class="gi-btn">Voir en grand ↗</button></div></div>
+        <div class="gi rev" onclick="openLb(1)"><img src="WhatsApp Image 2026-04-10 at 01.18.44.jpeg" alt=""><div class="gi-ov"><h3></h3><p></p><button class="gi-btn">Voir en grand ↗</button></div></div>
+        <div class="gi rev" onclick="openLb(2)"><img src="WhatsApp Image 2026-04-10 at 01.18.47 (1).jpeg" alt=""><div class="gi-ov"><h3></h3><p></p><button class="gi-btn">Voir en grand ↗</button></div></div>
+        <div class="gi rev" onclick="openLb(3)"><img src="WhatsApp Image 2026-04-10 at 01.19.09.jpeg" alt=""><div class="gi-ov"><h3></h3><p></p><button class="gi-btn">Voir en grand ↗</button></div></div>
+      </div>
+      <div class="gal-cta rev">
+        <button class="btn-ap" onclick="openLb(0)">
+          <span>📸</span><span>Voir toutes les photos</span><span class="arr">→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+ 
+  <section class="section" id="timeline">
+    <div class="container">
+      <div class="sec-title rev"><div class="eyebrow">✦ Notre parcours</div><h2>Timeline du club</h2><p>Une vision claire de l'évolution et du développement de Nebresse.</p></div>
+      <div class="timeline">
+        <div class="titem rev" style="transition-delay:0s"><div class="tdot"></div><div class="tcard card"><span class="date">Phase 1</span><h3>Lancement</h3><p>Création du club et identification des écoles cibles (ex : Azilal).</p></div></div>
+        <div class="titem rev" style="transition-delay:.15s"><div class="tdot"></div><div class="tcard card"><span class="date">Phase 2</span><h3>Mobilisation</h3><p>Collecte de dons et préparation logistique des interventions.</p></div></div>
+        <div class="titem rev" style="transition-delay:.3s"><div class="tdot"></div><div class="tcard card"><span class="date">Phase 3</span><h3>Impact Terrain</h3><p>Exécution des travaux de rénovation et animation des ateliers.</p></div></div>
+      </div>
+    </div>
+  </section>
+ 
+  <section class="section" id="activites">
+    <div class="container">
+      <div class="sec-title rev"><div class="eyebrow">✦ Vie du club</div><h2>Nos activités</h2><p>Le club organise des actions variées pour former, inspirer et rassembler.</p></div>
+      <div class="g3">
+        <div class="actcard card rev" style="transition-delay:0s"><div class="act-icon">🎓</div><h3>Ateliers & Formations</h3><p>Sessions de soutien scolaire et activités d'éveil pour les enfants.</p></div>
+        <div class="actcard card rev" style="transition-delay:.12s"><div class="act-icon">🔨</div><h3>Actions de Rénovation</h3><p>Travaux de peinture et réhabilitation des salles de classe.</p></div>
+        <div class="actcard card rev" style="transition-delay:.24s"><div class="act-icon">🤲</div><h3>Projets Sociaux</h3><p>Expéditions humanitaires pour distribuer des dons et redonner espoir.</p></div>
+      </div>
+    </div>
+  </section>
+ 
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="sec-title rev"><div class="eyebrow">✦ Prenons contact</div><h2>Contact</h2><p>انضم إلى Club Nebresse وشارك في تجربة طلابية أكثر طموحًا وتنظيمًا.</p></div>
+      <div class="cg">
+        <div class="cinfo card rev-l">
+          <h3>Informations</h3>
+          <p>Contacte-nous pour toute question, rejoindre le club ou proposer une collaboration.</p>
+          <div class="clist">
+            <div class="citem"><div>✉</div><div><strong>Email</strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="16757a6374787374647365657356717b777f7a3875797b">clubnebresse@gmail.com</a></div></div>
+            <div class="citem"><div>☎</div><div><strong>Téléphone</strong>+212 716 689 151</div></div>
+            <div class="citem"><div>📍</div><div><strong>Localisation</strong>ESTBM / Béni Mellal</div></div>
+            <div class="citem"><div>⌂</div><div><strong>Instagram</strong>club_nebresse_estbm</div></div>
+          </div>
+          <div class="msoc"><a href="https://www.facebook.com/share/1CwrpdDosP/?mibextid=wwXIfr" target="_blank">F</a><a href="https://www.instagram.com/club_nebresse_est.bm?igsh=cDM1NTIwY3NkMjM3&utm_source=qr" target="_blank">In</a><a href="https://www.tiktok.com/@nebressenebresse?_r=1&_t=ZS-95CwsHcJ7Fl" target="_blank">TK</a><a href="https://www.linkedin.com/company/club-nebresse/" target="_blank">li</a></div>
+        </div>
+        <div class="cform card rev-r">
+          <h3>Envoyer un message</h3>
+          <form id="cForm">
+            <div class="field"><label>Prénom</label><input type="text" id="prenom" placeholder="Votre prénom" required></div>
+            <div class="field"><label>Nom</label><input type="text" id="nom" placeholder="Votre nom" required></div>
+            <div class="field"><label>Email</label><input type="email" id="email" placeholder="Votre email" required></div>
+            <div class="field"><label>Téléphone</label><input type="text" id="telephone" placeholder="Votre téléphone"></div>
+            <div class="field full"><label>Sujet</label><input type="text" id="sujet" placeholder="Sujet de votre message" required></div>
+            <div class="field full"><label>Message</label><textarea rows="5" id="message" placeholder="Écrivez votre message ici..." required></textarea></div>
+            <div class="field full"><button type="submit" class="btn btn-gold" style="width:100%">Envoyer le message</button></div>
+          </form>
+          <div class="fnote">عند الضغط على الزر سيفتح الإيميل لإرسال الرسالة مباشرة.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+ 
+<footer>
+  <div class="container">
+    <div class="fg">
+      <div class="fbrand">
+        <div class="fbrand-title"><img src="logo_no_bg.png" alt="Logo"><h2>NEBRESSE</h2></div>
+        <p>Building a strong student community through leadership, teamwork, creativity and impactful initiatives.</p>
+        <div class="follow-row"><span>Follow us</span><a href="https://www.facebook.com/share/1CwrpdDosP/?mibextid=wwXIfr" target="_blank" class="sbtn">F</a><a href="https://www.instagram.com/club_nebresse_est.bm?igsh=cDM1NTIwY3NkMjM3&utm_source=qr" target="_blank" class="sbtn">I</a><a href="https://www.tiktok.com/@nebressenebresse?_r=1&_t=ZS-95CwsHcJ7Fl" target="_blank" class="sbtn">Tk</a></div>
+      </div>
+      <div class="fcol"><h3>Club</h3><ul><li><a href="#apropos">About Us</a></li><li><a href="#activites">Activities</a></li><li><a href="#poles">Our Poles</a></li></ul></div>
+      <div class="fcol"><h3>Resources</h3><ul><li><a href="#gallery">Gallery</a></li><li><a href="#timeline">Timeline</a></li><li><a href="#contact">Contact</a></li></ul></div>
+      <div class="fcol"><h3>Company</h3><ul><li><a href="#highlights">Values</a></li><li><a href="#contact">Join Us</a></li><li><a href="#accueil">Top</a></li></ul></div>
+      <div class="fcol"><h3>Legal</h3><ul><li><a href="#">Terms of Service</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Disclaimer</a></li></ul></div>
+    </div>
+    <div class="fline">© 2026 Club Nebresse — All rights reserved.</div>
+  </div>
+</footer>
+ 
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <div class="lb-inner">
+    <button class="lb-close" onclick="closeLb()">✕</button>
+    <button class="lb-nav prev" onclick="lbNav(-1)">&#8249;</button>
+    <img class="lb-img" id="lbImg" src="" alt="">
+    <button class="lb-nav next" onclick="lbNav(1)">&#8250;</button>
+    <div class="lb-cap" id="lbCap"></div>
+    <div class="lb-dots" id="lbDots"></div>
+  </div>
+</div>
+ 
+<!-- MEMBER MODAL -->
+<div class="modal" id="memModal">
+  <div class="mbox">
+    <button class="mclose" onclick="closeModal()">✕</button>
+    <div class="mcon">
+      <div class="mimg"><img id="mImg" src="logo_no_bg.png" alt=""></div>
+      <div class="minfo"><span class="mrole" id="mRole"></span><h3 id="mName"></h3><p id="mAbout"></p></div>
+    </div>
+  </div>
+</div>
+ 
+<!-- NEWS DETAIL MODAL -->
+<div class="news-modal" id="newsModal">
+  <div class="nmbox">
+    <button class="nmclose" onclick="closeNewsModal()">✕</button>
+    <div class="nm-hero">
+      <img id="nmImg" src="" alt="">
+      <div class="nm-hero-txt">
+        <div class="nm-cat" id="nmCat"></div>
+        <h2 id="nmTitle"></h2>
+      </div>
+    </div>
+    <div class="nm-body">
+      <div class="nm-meta">
+        <span>📅 <strong id="nmDate"></strong></span>
+        <span>🏛 <strong>Club Nebresse — ESTBM</strong></span>
+      </div>
+      <div class="nm-divider"></div>
+      <div class="nm-content" id="nmContent"></div>
+      <div class="nm-tags" id="nmTags"></div>
+      <div class="nm-footer">
+        <div class="nm-share">
+          <span>Partager :</span>
+          <a href="https://www.facebook.com/share/1CwrpdDosP/?mibextid=wwXIfr" target="_blank">F</a><a href="https://www.instagram.com/club_nebresse_est.bm?igsh=cDM1NTIwY3NkMjM3&utm_source=qr" target="_blank">In</a><a href="https://www.tiktok.com/@nebressenebresse?_r=1&_t=ZS-95CwsHcJ7Fl" target="_blank">TK</a>
+        </div>
+        <button class="nbtn" onclick="closeNewsModal()">← Retour aux actualités</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<button class="totop" id="totop">↑</button>
+ 
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('ldr').classList.add('out'),1700));
+const cur=document.getElementById('cur'),crng=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function aR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;crng.style.left=rx+'px';crng.style.top=ry+'px';requestAnimationFrame(aR)})();
+document.querySelectorAll('a,button,.gi,.mcard,.stat-pill,.hic,.ncard,.hlcard,.actcard').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.8)';crng.style.width='58px';crng.style.height='58px';crng.style.borderColor='rgba(243,214,140,.9)';});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';crng.style.width='38px';crng.style.height='38px';crng.style.borderColor='rgba(243,214,140,.55)';});
+});
+const spb=document.getElementById('spb');
+window.addEventListener('scroll',()=>{
+  spb.style.width=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100)+'%';
+  document.getElementById('hdr').classList.toggle('scrolled',window.scrollY>60);
+  document.getElementById('totop').classList.toggle('on',window.scrollY>500);
+  const hbg=document.querySelector('.hero-bg');
+  if(hbg&&window.scrollY<window.innerHeight*1.5)hbg.style.transform='translateY('+window.scrollY*.28+'px)';
+});
+const pcv=document.getElementById('pcv'),pctx=pcv.getContext('2d');
+let pts=[];
+const rPcv=()=>{pcv.width=window.innerWidth;pcv.height=window.innerHeight;};
+rPcv();window.addEventListener('resize',rPcv);
+class P{constructor(){this.reset()}reset(){this.x=Math.random()*pcv.width;this.y=Math.random()*pcv.height;this.s=Math.random()*1.7+.4;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.o=Math.random()*.5+.1;this.g=Math.random()>.55;}move(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>pcv.width||this.y<0||this.y>pcv.height)this.reset();}draw(){pctx.beginPath();pctx.arc(this.x,this.y,this.s,0,Math.PI*2);pctx.fillStyle=this.g?'rgba(214,171,71,'+this.o+')':'rgba(120,160,255,'+(this.o*.5)+')';pctx.fill();}}
+for(let i=0;i<90;i++)pts.push(new P());
+(function aP(){pctx.clearRect(0,0,pcv.width,pcv.height);pts.forEach(p=>{p.move();p.draw();});for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<95){pctx.beginPath();pctx.strokeStyle='rgba(214,171,71,'+(0.055*(1-d/95))+')';pctx.lineWidth=.5;pctx.moveTo(pts[i].x,pts[i].y);pctx.lineTo(pts[j].x,pts[j].y);pctx.stroke();}}requestAnimationFrame(aP)})();
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');if(e.target.closest('.hero'))runCtrs();}}),{threshold:.1});
+document.querySelectorAll('.rev,.rev-l,.rev-r').forEach(el=>ro.observe(el));
+const nlO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)document.getElementById('nLine').classList.add('on');}),{threshold:.5});
+nlO.observe(document.querySelector('.news-h'));
+let cSt=false;
+function runCtrs(){if(cSt)return;cSt=true;document.querySelectorAll('[data-count]').forEach(el=>{const t=+el.dataset.count;let c=0;const inc=Math.max(1,Math.ceil(t/60));const u=()=>{c+=inc;el.textContent=c>=t?t+'+':c;if(c<t)requestAnimationFrame(u);};setTimeout(u,400);});}
+if(document.querySelector('.hero').getBoundingClientRect().top<window.innerHeight)runCtrs();
+document.getElementById('menuTog').addEventListener('click',()=>document.getElementById('mMenu').classList.add('on'));
+document.getElementById('mClose').addEventListener('click',()=>document.getElementById('mMenu').classList.remove('on'));
+document.querySelectorAll('.m-menu a').forEach(a=>a.addEventListener('click',()=>document.getElementById('mMenu').classList.remove('on')));
+document.querySelectorAll('.btn,.nbtn,.mbtn,.nmore,.tabs button,.btn-ap').forEach(btn=>{btn.addEventListener('click',function(e){const r=document.createElement('span');r.classList.add('ripple');const rc=this.getBoundingClientRect(),sz=Math.max(rc.width,rc.height);r.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(e.clientX-rc.left-sz/2)+'px;top:'+(e.clientY-rc.top-sz/2)+'px;';this.style.position='relative';this.style.overflow='hidden';this.appendChild(r);setTimeout(()=>r.remove(),600);});});
+ 
+// ========== NEWS DATA WITH DETAILED CONTENT ==========
+const nSets=[[
+  {
+    cat:"14/02/2026",
+    title:"الخبرة والزيارة التقنية — Expertise & Diagnostic",
+    text:"زيارة ميدانية تقنية لتقييم الاحتياجات وتشخيص الوضع الراهن.",
+    img:"WhatsApp Image 2026-04-10 at 01.18.30.jpeg",
+    detail:{
+      date:"14 Février 2026",
+      intro:"في إطار التزام نادي Nebresse بتقديم قيمة حقيقية لأعضائه وللمجتمع المحلي، نظّم النادي زيارة ميدانية تقنية تحت عنوان 'الخبرة والزيارة التقنية'.",
+      sections:[
+        {title:"أهداف الزيارة",body:"هدفت هذه الزيارة إلى تشخيص الواقع الميداني وتقييم الاحتياجات الفعلية، وذلك من خلال لقاءات مباشرة مع المعنيين وجمع المعطيات اللازمة لبناء خطة عمل واقعية وفعّالة."},
+        {title:"ما تم تحقيقه",body:"تمكّن فريق النادي من إجراء تقييم شامل للوضع الراهن، وتحديد نقاط القوة والضعف، ورسم ملامح المرحلة القادمة من العمل الميداني. كما أتاحت الزيارة فرصة للتواصل المباشر مع الشركاء المحتملين."},
+        {title:"المشاركون",body:"شارك في هذه الزيارة أعضاء من مختلف أقسام النادي: الإدارة، اللوجستيك، والعلاقات الخارجية — مما أتاح رؤية متكاملة وشاملة للمشروع."}
+      ],
+      tags:["زيارة تقنية","تشخيص","ميداني","Nebresse"]
+    }
+  },
+  {
+    cat:"",
+    title:"الصيانة والتأهيل — Mise à Niveau & Maintenance",
+    text:"مبادرة لدعم عمليات الصيانة والتأهيل في إطار مشروع النادي.",
+    img:"WhatsApp Image 2026-04-10 at 01.19.00.jpeg",
+    detail:{
+      date:"Mars 2026",
+      intro:"انطلق نادي Nebresse في مرحلة الصيانة والتأهيل، وهي مرحلة محورية تهدف إلى تهيئة الظروف المثلى لتنفيذ المشاريع وضمان استدامتها على المدى البعيد.",
+      sections:[
+        {title:"نطاق العمل",body:"تشمل هذه المرحلة مجموعة من التدخلات التقنية واللوجستية الهادفة إلى تحسين البنية التحتية وتأهيل الموارد المتاحة لضمان كفاءة أعلى في تنفيذ الأنشطة."},
+        {title:"منهجية العمل",body:"اعتمد فريق النادي على منهجية منظمة تقوم على التقييم الأولي، وضع خطة التدخل، التنفيذ المتدرج، ثم المتابعة والتقييم النهائي لضمان الجودة."},
+        {title:"الأثر المتوقع",body:"تندرج هذه المبادرة ضمن رؤية النادي الاستراتيجية الرامية إلى بناء بيئة عمل احترافية تُمكّن الأعضاء من تطوير مهاراتهم وتحقيق أهداف النادي على أكمل وجه."}
+      ],
+      tags:["صيانة","تأهيل","استدامة","مشاريع"]
+    }
+  },
+  {
+    cat:"",
+    title:"المواكبة والنشاط السوسيو-تربوي — Accompagnement & Animation",
+    text:"برنامج دعم نفسي واجتماعي وتربوي لفائدة الطلاب والمجتمع.",
+    img:"WhatsApp Image 2026-03-28 at 16.34.36.jpeg",
+    detail:{
+      date:"Mars — Avril 2026",
+      intro:"يُطلق نادي Nebresse برنامجه في المواكبة والنشاط السوسيو-تربوي، وهو برنامج شامل يجمع بين الدعم النفسي والاجتماعي والأنشطة التربوية الهادفة لفائدة أعضاء النادي والطلاب عموماً.",
+      sections:[
+        {title:"محاور البرنامج",body:"يتضمن البرنامج ثلاثة محاور رئيسية: أولاً المواكبة الفردية والجماعية للطلاب، ثانياً الأنشطة الترفيهية والتربوية، وثالثاً ورشات التطوير الشخصي وتنمية المهارات الحياتية."},
+        {title:"الجمهور المستهدف",body:"يستهدف البرنامج بالدرجة الأولى الطلاب الجدد الذين يحتاجون إلى دعم في مرحلة الاندماج، إضافة إلى جميع أعضاء النادي الراغبين في تطوير أنفسهم على الصعيد الشخصي والمهني."},
+        {title:"الجدول الزمني",body:"يمتد البرنامج على مدى الفصل الدراسي الثاني مع تنظيم جلسات أسبوعية ومنتظمة، إلى جانب أحداث كبرى تُنظَّم في نهاية كل مرحلة للاحتفال بالإنجازات المحققة."}
+      ],
+      tags:["سوسيو-تربوي","مواكبة","تربية","Nebresse","طلاب"]
+    }
+  }
+]];
+ 
+let aSet=0;
+function renderNews(){
+  const sl=document.getElementById('newsSlider');
+  sl.innerHTML=nSets[aSet].map((n,i)=>`
+    <article class="ncard" style="transition-delay:${i*.09}s">
+      <div class="nthumb">
+        <img src="${n.img}" alt="${n.title}">
+        <span class="nbadge">${n.cat||'Actualité'}</span>
+      </div>
+      <div class="nbody">
+        <h3>${n.title}</h3>
+        <p>${n.text}</p>
+        <button class="nbtn" onclick="openNewsModal(${i})">Consulter l'avis →</button>
+      </div>
+    </article>`).join('');
+  sl.scrollLeft=0;
+  requestAnimationFrame(()=>sl.querySelectorAll('.ncard').forEach((c,i)=>setTimeout(()=>c.classList.add('on'),i*100)));
+}
+function slideNews(d){const sl=document.getElementById('newsSlider');const c=sl.querySelector('.ncard');if(!c)return;sl.scrollBy({left:d*(c.offsetWidth+26),behavior:'smooth'});}
+function changeNewsSet(){aSet=(aSet+1)%nSets.length;renderNews();}
+ 
+// ========== NEWS MODAL ==========
+function openNewsModal(i){
+  const n=nSets[aSet][i];
+  const d=n.detail;
+  document.getElementById('nmImg').src=n.img;
+  document.getElementById('nmCat').textContent=n.cat||'Actualité';
+  document.getElementById('nmTitle').textContent=n.title;
+  document.getElementById('nmDate').textContent=d.date;
+  let html=`<p>${d.intro}</p>`;
+  d.sections.forEach(s=>{html+=`<h3>${s.title}</h3><p>${s.body}</p>`;});
+  document.getElementById('nmContent').innerHTML=html;
+  document.getElementById('nmTags').innerHTML=d.tags.map(t=>`<span class="nm-tag">${t}</span>`).join('');
+  document.getElementById('newsModal').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeNewsModal(){
+  document.getElementById('newsModal').classList.remove('on');
+  document.body.style.overflow='';
+}
+document.getElementById('newsModal').addEventListener('click',e=>{if(e.target===document.getElementById('newsModal'))closeNewsModal();});
+ 
+// ========== POLES DATA WITH CORRECTED ABOUT ==========
+const poles={
+  administration:{
+    icon:"🏛",title:"Pôle Administration",
+    desc:"Le pôle Administration gère l'organisation interne du club, le suivi administratif, les documents et la coordination générale.",
+    members:[
+      {name:"Yasmine Atif",role:"Présidente",img:"WhatsApp Image 2026-04-10 at 19.10.04.jpeg",
+       about:"Présidente du club Nebresse, elle assure la direction générale du club, coordonne les différents pôles, veille à la bonne exécution des décisions et représente le club auprès des partenaires et de l'administration de l'école."},
+      {name:"Mohammed Talambouti",role:"Responsable des Pôles",img:"1000038063.png",
+       about:"Responsable des pôles, il assure la coordination et la communication entre les différentes équipes du club, veille à l'alignement des actions de chaque pôle avec les objectifs généraux du club."},
+      {name:"Malak El haddanny",role:"Vice-Présidente",img:"WhatsApp Image 2026-04-11 at 18.58.23.jpeg",
+       about:"Vice-Présidente du club, elle seconde la présidente dans la gestion quotidienne des affaires du club, prend en charge la coordination en son absence et contribue activement à la planification stratégique des activités."},
+      {name:"Hanane Olhaje",role:"Secrétaire Générale",img:"WhatsApp Image 2026-04-13 at 11.36.32.jpeg",
+       about:"Secrétaire Générale du club, elle rédige les comptes rendus des réunions, gère la correspondance officielle, archive les documents administratifs et assure le bon suivi des dossiers du club."}
+    ]
+  },
+  communication:{
+    icon:"📢",title:"Pôle Communication",
+    desc:"Le pôle Communication s'occupe des messages du club, de la communication interne et externe.",
+    members:[
+      {name:"Houdaifa Benharrate",role:"Responsable Communication",img:"WhatsApp Image 2026-04-10 at 19.45.38.jpeg",
+       about:"Responsable Communication, il définit et pilote la stratégie de communication du club, supervise l'ensemble des actions de communication interne et externe, et assure une image cohérente et professionnelle du club auprès de tous les publics."},
+      {name:"Meryame Farah",role:"Communication Interne",img:"WhatsApp Image 2026-04-10 at 20.17.57 (2).jpeg",
+       about:"Chargée de la communication interne, elle veille à la bonne circulation des informations entre les membres et les pôles du club, organise les canaux d'échange et s'assure que chaque membre est informé des décisions et des événements."},
+      {name:"Yassine",role:"Suivi & Évaluation",img:"WhatsApp Image 2026-04-11 at 17.18.11.jpeg",
+       about:"Chargé du suivi et de l'évaluation, il mesure l'impact des actions de communication, analyse les retours et les statistiques d'engagement, et propose des ajustements pour améliorer en continu la stratégie de communication du club."},
+      {name:"Aya Bouhraoua",role:"Conceptrice de Contenu",img:"WhatsApp Image 2026-04-10 at 21.46.41.jpeg",
+       about:"Conceptrice de contenu, elle crée et rédige les textes, publications et supports de communication du club, en veillant à produire un contenu engageant, créatif et aligné avec les valeurs et la vision de Nebresse."}
+    ]
+  },
+  media:{
+    icon:"🎥",title:"Pôle Média",
+    desc:"Le pôle Média est responsable de la communication visuelle et numérique du club.",
+    members:[
+      {name:"Aness Chbbani",role:"Responsable Média",img:"WhatsApp Image 2026-04-10 at 19.06.33.jpeg",
+       about:"Responsable Média, il supervise l'ensemble de la production visuelle et audiovisuelle du club, coordonne les créations graphiques, photos et vidéos, et garantit une identité visuelle forte et cohérente pour Nebresse sur toutes les plateformes."},
+      {name:"Ilyas Zamzoumi",role:"Recherche de Partenaires",img:"WhatsApp Image 2026-04-10 at 18.53.45.jpeg",
+       about:"Chargé de la recherche de partenaires médias, il prospecte et identifie les collaborations potentielles avec des médias, influenceurs et entités externes, afin d'amplifier la visibilité et la portée des actions du club."},
+      {name:"Khadija Krouit",role:"Community Manager",img:"WhatsApp Image 2026-04-17 at 18.26.07.jpeg",
+       about:"Community Manager du club, elle gère les réseaux sociaux de Nebresse, anime les communautés en ligne, publie du contenu régulier et interagit avec l'audience afin de développer et fidéliser la communauté digitale du club."},
+      {name:"",role:"Relations Entreprises",img:"",
+       about:"Chargé des relations entreprises au sein du pôle média, il développe et entretient des liens avec les entreprises partenaires, facilite les échanges et assure le suivi des collaborations dans un objectif de visibilité mutuelle."},
+       {
+  name: "SAAD AIT YAHIA",
+  role: "GRAPHIC DESIGNER",
+  img: "WhatsApp Image 2026-04-11 at 20.29.38.jpeg",
+  about: "Graphiste au sein du club, il conçoit et réalise des visuels créatifs pour les événements et les supports de communication, tout en veillant à l’identité visuelle et à l’image professionnelle du club."
+}
+    ]
+  },
+  logistique:{
+    icon:"📦",title:"Pôle Logistique",
+    desc:"Le pôle Logistique assure l'organisation matérielle et technique des événements.",
+    members:[
+      {name:"Zaynab Jouat",role:"Responsable Logistique",img:"WhatsApp Image 2026-04-10 at 20.51.28.jpeg",
+       about:"Responsable Logistique, elle planifie et supervise l'ensemble des besoins matériels et techniques des événements du club, coordonne les équipes sur le terrain et s'assure que chaque activité se déroule dans les meilleures conditions organisationnelles."},
+      {name:"AHMED EL BAJDALI",role:"Responsable Logistique",img:"WhatsApp Image 2026-04-25 at 22.29.56.jpeg",
+       about:"Responsable Logistique, il planifie et supervise l'ensemble des besoins matériels et techniques des événements du club, coordonne les équipes sur le terrain et s'assure que chaque activité se déroule dans les meilleures conditions organisationnelles."},
+      {name:"Bilal Annab",role:"Gestion du Matériel",img:"WhatsApp Image 2026-04-10 at 18.42.18.jpeg",
+       about:"Chargé de la gestion du matériel, il est responsable de l'inventaire, de la préparation et de la distribution de tout le matériel nécessaire aux activités du club, garantissant ainsi la disponibilité des ressources au bon moment et au bon endroit."},
+      {name:"Widad Qostal",role:"Coordination Terrain",img:"WhatsApp Image 2026-04-10 at 18.41.43.jpeg",
+       about:"Chargée de la coordination terrain, elle organise l'installation et la disposition des espaces lors des événements, assure le lien entre les équipes sur place et veille au bon déroulement logistique de chaque activité du club."},
+{
+  name: "Mohammed Garnaoui",
+  role: "Responsable de Transport",
+  img: "WhatsApp Image 2026-04-14 at 14.27.02.jpeg",
+  about: "Responsable du transport au sein du club, il planifie et organise les déplacements lors des événements, assure la gestion des moyens de transport et veille à la coordination logistique pour garantir le bon déroulement des activités."
+}
+    ]
+  },
+  rh:{
+    icon:"👥",title:"Pôle Ressources Humaines",
+    desc:"Le pôle RH s'occupe du recrutement, de l'intégration et de la cohésion d'équipe.",
+    members:[
+      {name:"Maroua Baddou",role:"Responsable RH",img:"WhatsApp Image 2026-04-10 at 18.58.45.jpeg",
+       about:"Responsable des Ressources Humaines, elle pilote la politique RH du club : recrutement des nouveaux membres, suivi des engagements, gestion des relations internes et mise en place d'initiatives visant à renforcer la cohésion et la motivation de l'équipe."},
+      {name:"Wijdane Razzak",role:"Rapporteur des Réunions",img:"WhatsApp Image 2026-04-10 at 18.39.32.jpeg",
+       about:"Chargée du rapport des réunions, elle prend note et rédige les comptes rendus officiels de toutes les réunions RH et générales, assure leur diffusion aux membres concernés et archive les décisions prises pour référence future."},
+      {name:"Marwan Zagouri",role:"Intégration & Motivation",img:"WhatsApp Image 2026-04-10 at 18.48.17 (1).jpeg",
+       about:"Chargé de l'intégration et de la motivation, il conçoit et met en œuvre des programmes d'accueil pour les nouveaux membres, organise des activités de team-building et développe des initiatives visant à maintenir un haut niveau d'engagement au sein du club."},
+{
+  name: "Bouchra Zahir",
+  role: "Gestion du Pointage",
+  img: "WhatsApp Image 2026-04-13 at 12.22.46.jpeg",
+  about: "Responsable du pointage au sein du pôle RH, elle assure le suivi des présences des membres, veille à l’organisation des feuilles de pointage et garantit une gestion rigoureuse des participations aux activités du club."
+},
+{
+  name: "Khadija Guini",
+  role: "Communication interne",
+  img: "WhatsApp Image 2026-04-13 at 12.23.10.jpeg",
+  about: "Responsable de la communication interne, elle facilite la circulation de l’information entre les membres, coordonne les échanges au sein du club et veille à maintenir une bonne organisation et cohésion d’équipe."
+}
+    ]
+  },
+  sponsoring:{
+    icon:"💼",title:"Pôle Sponsoring",
+    desc:"Le pôle Sponsoring développe les relations avec les partenaires et les entreprises.",
+    members:[
+      {name:"Othmane Ourhou",role:"Responsable Sponsoring",img:"WhatsApp Image 2026-04-10 at 18.40.57.jpeg",
+       about:"Responsable Sponsoring, il coordonne l'ensemble des démarches de partenariat du club, définit la stratégie de recherche de sponsors, rédige les dossiers de présentation et assure le suivi des accords conclus avec les entreprises partenaires."},
+      {name:"Ikram Achemakh",role:"Chargée de Partenariats",img:"WhatsApp Image 2026-04-10 at 19.14.50.jpeg",
+       about:"Chargée des partenariats, elle prospecte activement de nouveaux sponsors, prend contact avec les entreprises potentielles, présente les opportunités de collaboration et entretient des relations durables avec les partenaires déjà engagés."},
+      {name:"Ahlam Boussil",role:"Prospection",img:"WhatsApp Image 2026-04-10 at 18.40.19.jpeg",
+       about:"Chargée de la prospection, elle identifie et cible les entreprises et organismes susceptibles de soutenir les projets du club, effectue les premières prises de contact et alimente le pipeline de partenariats potentiels."},
+      {name:"Maryam Elhainouni",role:"Rédaction & Dossiers",img:"WhatsApp Image 2026-04-10 at 19.11.46.jpeg",
+       about:"Chargée de la rédaction et des dossiers de sponsoring, elle élabore les propositions de partenariat, rédige les conventions et les supports de présentation, et veille à ce que les documents envoyés aux partenaires soient professionnels et percutants."}
+    ]
+  }
+};
+ 
+function renderMem(mems){
+  const sl=document.getElementById('msl');sl.scrollLeft=0;
+  sl.innerHTML=mems.filter(m=>m&&m.name).map((m,i)=>`
+    <div class="mcard" style="transition-delay:${i*.08}s">
+      <div class="mtop"></div>
+      <img src="${m.img||'logo_no_bg.png'}" alt="${m.name}">
+      <h4>${m.name}</h4>
+      <div class="rbadge">${m.role}</div>
+      <p>${m.about.substring(0,90)}…</p>
+      <button class="mbtn" onclick='openModal(${JSON.stringify(m).replace(/'/g,"&apos;")})'>Voir plus</button>
+    </div>`).join('');
+  requestAnimationFrame(()=>sl.querySelectorAll('.mcard').forEach((c,i)=>setTimeout(()=>c.classList.add('on'),i*80)));
+}
+function showPole(k,btn){
+  const p=poles[k],box=document.getElementById('pbox');
+  box.classList.add('fade');
+  setTimeout(()=>{
+    box.innerHTML=`<div class="pole-icon">${p.icon}</div><h3>${p.title}</h3><p>${p.desc}</p>`;
+    box.classList.remove('fade');
+  },300);
+  renderMem(p.members);
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+function slideMem(d){const sl=document.getElementById('msl');const c=sl.querySelector('.mcard');if(!c)return;sl.scrollBy({left:d*(c.offsetWidth+22),behavior:'smooth'});}
+function openModal(m){
+  document.getElementById('mImg').src=m.img||'logo_no_bg.png';
+  document.getElementById('mRole').textContent=m.role;
+  document.getElementById('mName').textContent=m.name;
+  document.getElementById('mAbout').textContent=m.about;
+  document.getElementById('memModal').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('memModal').classList.remove('on');document.body.style.overflow='';}
+document.getElementById('memModal').addEventListener('click',e=>{if(e.target===document.getElementById('memModal'))closeModal();});
+ 
+const gallImgs=[
+  {src:"WhatsApp Image 2026-04-13 at 11.47.09.jpeg",cap:"Identité du club — Club Nebresse"},
+  {src:"WhatsApp Image 2026-04-10 at 01.18.44.jpeg",cap:"Club Nebresse — ESTBM"},
+  {src:"WhatsApp Image 2026-04-10 at 01.18.47 (1).jpeg",cap:"Club Nebresse — ESTBM"},
+  {src:"WhatsApp Image 2026-04-10 at 01.19.09.jpeg",cap:"Club Nebresse — ESTBM"}
+];
+let lbI=0;
+function openLb(i){lbI=i;const lbImg=document.getElementById('lbImg');lbImg.style.transition='opacity .25s,transform .25s';lbImg.src=gallImgs[lbI].src;document.getElementById('lbCap').textContent=gallImgs[lbI].cap;renderDots();document.getElementById('lb').classList.add('on');document.body.style.overflow='hidden';}
+function closeLb(){document.getElementById('lb').classList.remove('on');document.body.style.overflow='';}
+function lbNav(d){lbI=(lbI+d+gallImgs.length)%gallImgs.length;const img=document.getElementById('lbImg');img.style.opacity='0';img.style.transform='scale(.9)';setTimeout(()=>{img.src=gallImgs[lbI].src;document.getElementById('lbCap').textContent=gallImgs[lbI].cap;img.style.opacity='1';img.style.transform='scale(1)';renderDots();},250);}
+function renderDots(){document.getElementById('lbDots').innerHTML=gallImgs.map((_,i)=>`<button class="lb-dot${i===lbI?' on':''}" onclick="openLb(${i})"></button>`).join('');}
+document.getElementById('lb').addEventListener('click',e=>{if(e.target===document.getElementById('lb'))closeLb();});
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('lb').classList.contains('on')){if(e.key==='ArrowRight')lbNav(1);if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='Escape')closeLb();}
+  if(document.getElementById('memModal').classList.contains('on')&&e.key==='Escape')closeModal();
+  if(document.getElementById('newsModal').classList.contains('on')&&e.key==='Escape')closeNewsModal();
+});
+document.getElementById('totop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+document.getElementById('cForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const p=document.getElementById('prenom').value.trim(),n=document.getElementById('nom').value.trim(),em=document.getElementById('email').value.trim(),t=document.getElementById('telephone').value.trim(),s=document.getElementById('sujet').value.trim(),m=document.getElementById('message').value.trim();
+  window.location.href='mailto:clubnebresse@gmail.com?subject='+encodeURIComponent(s)+'&body='+encodeURIComponent('Nom: '+p+' '+n+'\nEmail: '+em+'\nTéléphone: '+t+'\n\nMessage:\n'+m);
+});
+ 
+// Init
+document.getElementById('pbox').innerHTML=`<div class="pole-icon">${poles.administration.icon}</div><h3>${poles.administration.title}</h3><p>${poles.administration.desc}</p>`;
+renderMem(poles.administration.members);
+renderNews();
+</script>
+</body>
+</html>
